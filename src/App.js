@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Square from "./Square"
+import Game from "./Game"
+
+
 
 function App() {
+  // const Board = new Game(12, 12)
+  // Board.createBoard()
+  // const boardHeight = 900
+  // const squareHeight = `${boardHeight / Board.rows}px`
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Game rows={12} cols={12}/>
+    // <div className="flex items-center h-screen">
+    //   <div className="mx-auto flex flex-wrap w-3/6 border bg-black" style={{ height: boardHeight }} >
+    //     {Board.board.map(el => el.map(el => <Square cols={Board.cols} height={squareHeight}/>))}
+    //   </div>
+    // </div>
   );
 }
+
+
 
 export default App;
