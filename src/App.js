@@ -10,7 +10,7 @@ function App() {
   // const squareHeight = `${boardHeight / Board.rows}px`
 
   return (
-    <Game rows={12} cols={12}/>
+    <Game rows={25} cols={25}/>
     // <div className="flex items-center h-screen">
     //   <div className="mx-auto flex flex-wrap w-3/6 border bg-black" style={{ height: boardHeight }} >
     //     {Board.board.map(el => el.map(el => <Square cols={Board.cols} height={squareHeight}/>))}
