@@ -8,16 +8,14 @@ const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
-  // const [ selectedPreset, setSelectedPreset ] = React.useState({})
+  const [changeList, setChangeList ] = React.useState([])
   const iterateRef = React.useRef(false)
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
+  // const [ liveNeighbors, setLiveNeighbors ] = React.useState([])
   
   const centerCol = Math.floor(cols / 2)
   const centerRow = Math.floor(rows / 2)
 
-  const cachedCells = useMemo(() => {
-    
-  })
 
   const randomize = () => {
     for (let i = 0; i < randAliveCells; i++){
@@ -56,7 +54,7 @@ const Game = ({ rows, cols }) => {
       return
     }
     nextGeneration()
-    setTimeout(runGame, 10)
+    setTimeout(runGame, 20)
   }
 
   const boardHeight = 900
