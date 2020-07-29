@@ -3,15 +3,26 @@ import Square from "./Square"
 import produce from "immer"
 import { presets } from "./Presets"
 
+const neighborOffsets = [
+  [-1,0],
+  [-1, -1],
+  [-1, 1],
+  [0, -1],
+  [0, 1],
+  [1, -1],
+  [1, 1],
+  [1, 0]
+]
+
 
 const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
-  const [changeList, setChangeList ] = React.useState([])
+  const [ changeList, setChangeList ] = React.useState([])
   const iterateRef = React.useRef(false)
+  const genRef = React.useRef(0)
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
-  // const [ liveNeighbors, setLiveNeighbors ] = React.useState([])
   
   const centerCol = Math.floor(cols / 2)
   const centerRow = Math.floor(rows / 2)
@@ -37,15 +48,15 @@ const Game = ({ rows, cols }) => {
 
   const liveNeighbors = (x, y, b) => {
     let total = 0
-    for (let i = y - 1; i <= y + 1; i++){
-      for (let j = x - 1; j <= x + 1; j++){
-        if (i >= 0 && i < rows && j >=0 && j < cols){
-          if (i !== y || j !== x){
-            total += b[i][j]
-          }
-        }
+    
+    neighborOffsets.forEach(([yOffset, xOffset]) => {
+      const newY = y + yOffset
+      const newX = x + xOffset
+      if (newY >= 0 && newY < rows && newX >= 0 && newX < cols){
+        total += b[newY][newX]
       }
-    }
+    })
+
     return total
   }
 
@@ -53,8 +64,12 @@ const Game = ({ rows, cols }) => {
     if (!iterateRef.current){
       return
     }
-    nextGeneration()
-    setTimeout(runGame, 20)
+    if (genRef.current == 0){
+      nextGeneration()
+    }
+    console.log(changeList)
+    handleWorkCells(createWorkCells())
+    setTimeout(runGame, 100)
   }
 
   const boardHeight = 900
@@ -83,7 +98,33 @@ const Game = ({ rows, cols }) => {
   }
   
   useEffect(createBoard, [])
- 
+
+  const createWorkCells = () => {
+    return Array.from(new Set(changeList))
+  }
+  
+  const handleWorkCells = (workCells) => {
+    console.log(workCells)
+    setChangeList([])
+    setBoard(board => {
+      return produce(board, boardCopy => {
+        workCells.forEach(el => {
+          neighborOffsets.forEach(([yOffset, xOffset]) => {
+            const newY = el.y + yOffset
+            const newX = el.x + xOffset
+            const neighbors = liveNeighbors(newY, newX, board)
+            if (neighbors === 3){
+              boardCopy[newY][newX] = 1
+              setChangeList(changeList => produce(changeList, changeListCopy => changeList.push({x: newX, y: newY})))
+             } else if (board[newY][newX] && (neighbors < 2 || neighbors > 3)){
+              boardCopy[newY][newX] = 0
+              setChangeList(changeList => produce(changeList, changeListCopy => changeList.push({x: newX, y: newY})))
+            }
+          })
+        })
+      })
+    })
+  }
 
   const nextGeneration = () => {
     setBoard(board => produce(board, boardCopy => {
@@ -92,15 +133,21 @@ const Game = ({ rows, cols }) => {
           const neighbors = liveNeighbors(j, i, board)
           if (neighbors === 3){
             boardCopy[i][j] = 1
-          } else if (cell && (neighbors === 2 || neighbors === 3)){
-            return
-          } else {
+            setChangeList(changeList => produce(changeList, changeListCopy => {changeListCopy.push({x: j, y: i})}))
+           } else if (cell && (neighbors < 2 || neighbors > 3)){
             boardCopy[i][j] = 0
+            setChangeList(changeList => produce(changeList, changeListCopy => {changeListCopy.push({x: j, y: i})}))
           }
+          // } else if (cell && (neighbors === 2 || neighbors === 3)){
+          //   return
+          // } else {
+          //   boardCopy[i][j] = 0
         })
       })
     }))
+    console.log(changeList)
     setGenCount(prevState => prevState + 1)
+    genRef.current += 1
   }
 
   const toggleStart = () => {
