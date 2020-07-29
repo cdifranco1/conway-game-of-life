@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react"
+import React, { useEffect, useCallback, useMemo } from "react"
 import Square from "./Square"
 import produce from "immer"
 import { presets } from "./Presets"
@@ -10,10 +10,14 @@ const Game = ({ rows, cols }) => {
   const [ genCount, setGenCount ] = React.useState(0)
   // const [ selectedPreset, setSelectedPreset ] = React.useState({})
   const iterateRef = React.useRef(false)
-  const [ randAliveCells, setRandAliveCells ]  = React.useState(200) 
+  const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
   
   const centerCol = Math.floor(cols / 2)
   const centerRow = Math.floor(rows / 2)
+
+  const cachedCells = useMemo(() => {
+    
+  })
 
   const randomize = () => {
     for (let i = 0; i < randAliveCells; i++){
@@ -52,7 +56,7 @@ const Game = ({ rows, cols }) => {
       return
     }
     nextGeneration()
-    setTimeout(runGame, 200)
+    setTimeout(runGame, 10)
   }
 
   const boardHeight = 900
@@ -140,17 +144,17 @@ const Game = ({ rows, cols }) => {
         </div>
 
         {/* this needs to go in separate component */}
-        <div className="flex flex-col flex-wrap items-center ml-20 w-1/6 max-h-screen mt-2 border border-gray-400 shadow-md">
-          <h3 className="text-2xl font-semibold bg-gray-400 w-full p-4">Preset Shapes</h3>
+        <div className="flex flex-col flex-wrap justify-between items-center ml-10 w-1/10 max-h-screen mt-2 border border-gray-400 shadow-md">
+          <h3 className="text-2xl font-semibold bg-gray-400 w-full p-4">Preset Patterns</h3>
           {presets.map((el, i) => {
             return (
-              <div key={`${el.name}-${i}`} className="w-3/6 my-2">
-                <p className="text-xl font-semibold">{el.name}</p>
+              <div key={`${el.name}-${i}`} className="w-7/12 my-2">
                 <button 
                   className="position relative rounded-lg shadow-md focus:outline-none focus:shadow-outline overflow-hidden w-full"
                   onClick={() => presetBoard(el)}
                 >
                   <img className="object-cover w-full h-full" src={el.imgSrc} />
+                  <p className="text-xl font-semibold py-2">{el.name}</p>
                 </button>
               </div>
             )
