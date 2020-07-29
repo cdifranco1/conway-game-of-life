@@ -1,7 +1,13 @@
+import acorn from "./assets/imgs/acorn.png" 
+import blinker from "./assets/imgs/blinker.png" 
+import diehard from "./assets/imgs/diehard.png" 
+import gasper_gun from "./assets/imgs/gasper_gun.png" 
+import glider from "./assets/imgs/glider.png" 
+import toad from "./assets/imgs/toad.png" 
 
 export const presets = [
   {
-    name: "Gosper glider gun",
+    name: "Gosper Glider Gun",
     offsets: [
       [0, 0],
       [0, -4],
@@ -39,7 +45,8 @@ export const presets = [
       [1, -13],
       [0, -14],
       [1, -14],
-    ]
+    ],
+    imgSrc: gasper_gun
   },
   {
     name: "Acorn",
@@ -51,7 +58,8 @@ export const presets = [
       [-1, 2],
       [-1, 3],
       [-1, 4]
-    ]
+    ],
+    imgSrc: acorn
   },
   {
     name: "Diehard",
@@ -63,7 +71,8 @@ export const presets = [
       [-1, 2],
       [-1, 3],
       [-1, 4]
-    ]
+    ],
+    imgSrc: diehard
   },
   {
     name: "Glider",
@@ -73,16 +82,18 @@ export const presets = [
       [-1, 0],
       [-1, -1],
       [-1, 1]
-    ]
-  },
-  {
-    name: "Blinker",
-    offsets: [
-      [0, 0],
-      [1, 0],
-      [-1, 0]
     ],
+    imgSrc: glider
   },
+  // {
+  //   name: "Blinker",
+  //   offsets: [
+  //     [0, 0],
+  //     [1, 0],
+  //     [-1, 0]
+  //   ],
+  //   imgSrc: blinker
+  // },
   {
     name: "Toad",
     offsets: [
@@ -92,7 +103,8 @@ export const presets = [
       [1, -1],
       [0, -1],
       [0, -2]
-    ]
+    ],
+    imgSrc: toad
   },
 ]
 

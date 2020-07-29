@@ -4,11 +4,10 @@ import produce from "immer"
 import { presets } from "./Presets"
 
 
-
-
 const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
+  const [ genCount, setGenCount ] = React.useState(0)
   // const [ selectedPreset, setSelectedPreset ] = React.useState({})
   const iterateRef = React.useRef(false)
   const [ randAliveCells, setRandAliveCells ]  = React.useState(200) 
@@ -22,6 +21,7 @@ const Game = ({ rows, cols }) => {
       const row = Math.floor(Math.random() * rows)
       toggleAlive(col, row)
     }
+    setGenCount(0)
   }
 
   const presetBoard = (preset) => {
@@ -56,7 +56,7 @@ const Game = ({ rows, cols }) => {
   }
 
   const boardHeight = 900
-  const squareHeight = `${boardHeight / rows}px`
+  const squareHeight = `${boardHeight / rows}`
 
 
   const toggleAlive = (x, y) => {
@@ -98,6 +98,7 @@ const Game = ({ rows, cols }) => {
         })
       })
     }))
+    setGenCount(prevState => prevState + 1)
   }
 
   const toggleStart = () => {
@@ -110,31 +111,54 @@ const Game = ({ rows, cols }) => {
     setIterate(false)
     iterateRef.current = false
     setBoard(board.map(el => el.map(el => 0)))
+    setGenCount(0)
   }
 
   return (
-    <div className="py-5 px-20 flex border border-black h-screen">
-      <div>
-        <div className="flex flex-wrap w-3/6 border bg-black" style={{ height: boardHeight }} >
-          {board.map((el, i) => el.map((el, j) => <Square key={`${i}${j}`} toggleAlive={toggleAlive} alive={el ? true : false} x={j} y={i} cols={cols} rows={rows} height={squareHeight}/>
-        ))}
+    board.length ?
+      <>
+        <div className="w-3/6">
+          <h3 className="text-2xl py-4 tracking-wide">Generation: {`${genCount}`}</h3>
+          <div className="flex flex-wrap shadow-md w-full border-gray-400 border" style={{ height: boardHeight }} >
+            {board.map((el, i) => el.map((el, j) => <Square key={`${i}-${j}`} toggleAlive={toggleAlive} alive={el ? true : false} x={j} y={i} cols={cols} rows={rows} height={squareHeight}/>
+          ))}
+          </div>
+
+          {/* this needs to go in separate component */}  
+          <div className="w-full flex justify-evenly p-3">
+            <button className={`px-3 py-2 ${!iterate ? "bg-green-500 hover:bg-green-600 active:bg-green-700" : "bg-red-500 hover:bg-red-600 active:bg-red-700"} text-white shadow-md rounded-md focus:outline-none focus:shadow-outline`} onClick={toggleStart}>
+              {iterate ? "Pause" : "Play"}
+            </button>
+            <button className="px-3 py-2 bg-green-400 hover:bg-green-500 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-green-700" onClick={nextGeneration}>
+              Step Forward
+            </button>
+            <button className="px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={resetBoard}>
+              Reset
+            </button>
+            <button className="px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={randomize}>Randomize</button>
+          </div>
         </div>
-        <div className="border border-black w-3/6 flex justify-evenly">
-          <button className="px-3 py-2 bg-blue-400 hover:bg-blue-500 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={toggleStart}>
-            {iterate ? "Stop Simulation" : "Start Simulation"}
-          </button>
-          <button className="px-3 py-2 bg-blue-400 hover:bg-blue-500 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-700" onClick={resetBoard}>
-            Reset Simulation
-          </button>
-        </div>
-      </div>
-      <div className="border border-black flex flex-col">
-        {presets.map(el => {
-          return <button onClick={() => presetBoard(el)}>{el.name}</button>  
-        })}
-        <button onClick={randomize}>Randomize</button>
-      </div>
-    </div>
+
+        {/* this needs to go in separate component */}
+        <div className="flex flex-col flex-wrap items-center ml-20 w-1/6 max-h-screen mt-2 border border-gray-400 shadow-md">
+          <h3 className="text-2xl font-semibold bg-gray-400 w-full p-4">Preset Shapes</h3>
+          {presets.map((el, i) => {
+            return (
+              <div key={`${el.name}-${i}`} className="w-3/6 my-2">
+                <p className="text-xl font-semibold">{el.name}</p>
+                <button 
+                  className="position relative rounded-lg shadow-md focus:outline-none focus:shadow-outline overflow-hidden w-full"
+                  onClick={() => presetBoard(el)}
+                >
+                  <img className="object-cover w-full h-full" src={el.imgSrc} />
+                </button>
+              </div>
+            )
+          })}
+        </div> 
+      </>
+      :
+      <h1>Loading...</h1>
   )
 }
 
