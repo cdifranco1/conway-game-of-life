@@ -56,7 +56,7 @@ const Game = ({ rows, cols }) => {
     setTimeout(runGame, 20)
   }
 
-  const boardHeight = 700
+  const boardHeight = 500
   const squareHeight = `${boardHeight / rows}`
 
 
@@ -142,7 +142,7 @@ const Game = ({ rows, cols }) => {
 
         {/* this needs to go in separate component */}
         <div className="flex flex-col flex-wrap justify-between items-center ml-10 w-1/10 max-h-screen mt-2 border border-gray-400 shadow-md">
-          <h3 className="text-2xl font-semibold bg-gray-400 w-full p-4">Preset Patterns</h3>
+          <h3 className="text-xl font-semibold bg-gray-400 w-full p-4">Preset Patterns</h3>
           {presets.map((el, i) => {
             return (
               <div key={`${el.name}-${i}`} className="w-7/12 my-2">
@@ -151,7 +151,7 @@ const Game = ({ rows, cols }) => {
                   onClick={() => presetBoard(el)}
                 >
                   <img className="object-cover w-full h-full" src={el.imgSrc} />
-                  <p className="text-xl font-semibold py-2">{el.name}</p>
+                  <p className="text-lg font-semibold py-1">{el.name}</p>
                 </button>
               </div>
             )
