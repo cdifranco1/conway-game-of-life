@@ -8,7 +8,6 @@ const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
-  const [changeList, setChangeList ] = React.useState([])
   const iterateRef = React.useRef(false)
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
   // const [ liveNeighbors, setLiveNeighbors ] = React.useState([])
