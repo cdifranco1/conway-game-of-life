@@ -605,9 +605,9 @@ video {
   }
 }
 
-/* html {
-  font-size: 10px;
-} */
+html {
+  font-size: 12px;
+}
 
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
