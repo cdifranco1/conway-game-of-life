@@ -1,5 +1,4 @@
 import acorn from "./assets/imgs/acorn.png" 
-// import blinker from "./assets/imgs/blinker.png" 
 import diehard from "./assets/imgs/diehard.png" 
 import gosper_gun from "./assets/imgs/gosper_gun.png" 
 import glider from "./assets/imgs/glider.png" 

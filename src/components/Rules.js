@@ -2,7 +2,7 @@ import React from "react"
 
 const Rules = () => {
   return (
-    <div className="md:w-5/12 text-xl font-serif p-5 border border-gray-300 mt-10 md:ml-10 shadow-sm">
+    <div className="md:w-5/12 text-xl font-serif p-5 border border-gray-300 mt-10 md:mt-0 md:ml-10 shadow-sm">
       <h2 className="text-2xl font-bold">Rules</h2>
       <p className="px-3 my-5">The Game of Life is a cellular automaton where each cell in a typically two-dimensional grid can have two different states, "live" or "dead". Each cell's behavior is based on it's eight surrounding neighbors, and each generation of the grid is a pure function of the previous grid state.</p>
       <p className="px-3 my-5">For each generation, the grid transitions based on the following rules:</p>
