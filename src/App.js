@@ -9,10 +9,10 @@ export const rows = 50
 
 function App() {
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-gray-100 ">
       <Header />
       <div className="py-5 px-10">
-        <div className="flex flex-col md:flex-row bg-gray-100 w-full font-serif">
+        <div className="flex flex-col md:flex-row w-full font-serif">
           <Game rows={rows} cols={cols}/>
           <Rules />
         </div>
