@@ -58,8 +58,10 @@ export const presets = [
       [1, -2],
       [1, 2],
       [1, 3],
-      [1, 4]
+      [1, 4],
     ],
+    initialYOffset: 0,
+    initialXOffset: 0,
     imgSrc: acorn
   },
   {
@@ -73,6 +75,8 @@ export const presets = [
       [1, 3],
       [1, 4]
     ],
+    initialYOffset: 0,
+    initialXOffset: 0,
     imgSrc: diehard
   },
   {
@@ -84,6 +88,8 @@ export const presets = [
       [1, -1],
       [1, 1]
     ],
+    initialYOffset: 0,
+    initialXOffset: 0,
     imgSrc: glider
   },
   // {
@@ -105,6 +111,8 @@ export const presets = [
       [0, -1],
       [0, -2]
     ],
+    initialYOffset: 0,
+    initialXOffset: 0,
     imgSrc: toad
   },
 ]
