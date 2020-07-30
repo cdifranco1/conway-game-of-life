@@ -1,7 +1,7 @@
 import acorn from "./assets/imgs/acorn.png" 
-import blinker from "./assets/imgs/blinker.png" 
+// import blinker from "./assets/imgs/blinker.png" 
 import diehard from "./assets/imgs/diehard.png" 
-import gasper_gun from "./assets/imgs/gasper_gun.png" 
+import gosper_gun from "./assets/imgs/gosper_gun.png" 
 import glider from "./assets/imgs/glider.png" 
 import toad from "./assets/imgs/toad.png" 
 
@@ -46,7 +46,7 @@ export const presets = [
       [0, -14],
       [-1, -14],
     ],
-    imgSrc: gasper_gun
+    imgSrc: gosper_gun
   },
   {
     name: "Acorn",
@@ -67,7 +67,7 @@ export const presets = [
       [0, -2],
       [0, -3],
       [1, -2],
-      [1, 3],
+      [-1, 3],
       [1, 2],
       [1, 3],
       [1, 4]
