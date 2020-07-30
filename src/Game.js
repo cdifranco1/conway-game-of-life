@@ -151,7 +151,7 @@ const Game = ({ rows, cols }) => {
                   onClick={() => presetBoard(el)}
                 >
                   <img className="object-cover w-full h-full" src={el.imgSrc} />
-                  <p className="text-lg font-semibold py-1">{el.name}</p>
+                  <p className="font-semibold py-1">{el.name}</p>
                 </button>
               </div>
             )
