@@ -56,7 +56,7 @@ const Game = ({ rows, cols }) => {
     setTimeout(runGame, 20)
   }
 
-  const boardHeight = 900
+  const boardHeight = 700
   const squareHeight = `${boardHeight / rows}`
 
 

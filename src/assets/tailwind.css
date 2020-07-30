@@ -3,7 +3,7 @@
 @tailwind components;
 
 html {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 @tailwind utilities;
