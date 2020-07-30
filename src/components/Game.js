@@ -10,10 +10,12 @@ const Game = ({ rows, cols }) => {
   const [ genCount, setGenCount ] = React.useState(0)
   const iterateRef = React.useRef(false)
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
-  // const [ liveNeighbors, setLiveNeighbors ] = React.useState([])
   
   const centerCol = Math.floor(cols / 2)
   const centerRow = Math.floor(rows / 2)
+
+  const boardHeight = 525
+  const squareHeight = `${boardHeight / rows}`
 
 
   const randomize = () => {
@@ -28,8 +30,8 @@ const Game = ({ rows, cols }) => {
   const presetBoard = (preset) => {
     resetBoard()
     preset.offsets.forEach(([yOffset, xOffset]) => {
-      const y = centerRow + yOffset
-      const x = centerCol + xOffset
+      const y = centerRow + yOffset + preset.initialYOffset
+      const x = centerCol + xOffset + preset.initialXOffset
       toggleAlive(x, y)
     }) 
   }
@@ -55,9 +57,6 @@ const Game = ({ rows, cols }) => {
     nextGeneration()
     setTimeout(runGame, 20)
   }
-
-  const boardHeight = 525
-  const squareHeight = `${boardHeight / rows}`
 
 
   const toggleAlive = (x, y) => {
@@ -129,17 +128,17 @@ const Game = ({ rows, cols }) => {
 
           {/* this needs to go in separate component */}  
           {/* buttons to control the board */}  
-          <div className="w-full flex justify-evenly p-3">
-            <button className={`px-3 py-2 ${!iterate ? "bg-green-500 hover:bg-green-600 active:bg-green-700" : "bg-red-500 hover:bg-red-600 active:bg-red-700"} text-white shadow-md rounded-md focus:outline-none focus:shadow-outline`} onClick={toggleStart}>
+          <div className="w-full flex justify-around p-3">
+            <button className={`px-2 py-1 ${!iterate ? "bg-green-500 hover:bg-green-600 active:bg-green-700" : "bg-red-500 hover:bg-red-600 active:bg-red-700"} text-white shadow-md rounded-md focus:outline-none focus:shadow-outline`} onClick={toggleStart}>
               {iterate ? "Pause" : "Play"}
             </button>
-            <button className="px-3 py-2 bg-green-400 hover:bg-green-500 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-green-700" onClick={nextGeneration}>
+            <button className="px-2 py-1 bg-green-400 hover:bg-green-500 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-green-700" onClick={nextGeneration}>
               Step Forward
             </button>
-            <button className="px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={resetBoard}>
+            <button className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={resetBoard}>
               Reset
             </button>
-            <button className="px-3 py-2 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={randomize}>Randomize</button>
+            <button className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={randomize}>Randomize</button>
           </div>
         </div>
 
@@ -150,7 +149,7 @@ const Game = ({ rows, cols }) => {
           <div className="flex justify-around p-4 md:p-0 md:flex md:flex-col items-center">
             {presets.map((el, i) => {
               return (
-                <div key={`${el.name}-${i}`} className="w-1/8 md:w-7/12 md:my-4">
+                <div key={`${el.name}-${i}`} className="w-1/8 md:w-7/12 md:my-3">
                   <button 
                     className="position relative rounded-lg shadow-md border border-gray-300 focus:outline-none focus:shadow-outline overflow-hidden w-full"
                     onClick={() => presetBoard(el)}

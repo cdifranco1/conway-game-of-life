@@ -45,6 +45,8 @@ export const presets = [
       [0, -14],
       [-1, -14],
     ],
+    initialYOffset: -10,
+    initialXOffset: -5,
     imgSrc: gosper_gun
   },
   {
