@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useMemo } from "react"
 import Square from "./Square"
 import produce from "immer"
-import { presets } from "./Presets"
+import { presets } from "../Presets"
 
 
 const Game = ({ rows, cols }) => {
@@ -56,7 +56,7 @@ const Game = ({ rows, cols }) => {
     setTimeout(runGame, 20)
   }
 
-  const boardHeight = 500
+  const boardHeight = 525
   const squareHeight = `${boardHeight / rows}`
 
 
@@ -119,10 +119,10 @@ const Game = ({ rows, cols }) => {
     board.length ?
       <>
         <div className="w-full md:w-3/6">
-          <h3 className="text-2xl py-4 tracking-wide">Generation: {`${genCount}`}</h3>
+          <h3 className="text-2xl pb-3 tracking-wide">Generation: {`${genCount}`}</h3>
 
           {/* main board component */}
-          <div className="flex flex-wrap shadow-md w-full border-gray-400 border" style={{ height: boardHeight }} >
+          <div className="flex flex-wrap shadow-md w-full" style={{ height: boardHeight }} >
             {board.map((el, i) => el.map((el, j) => <Square key={`${i}-${j}`} toggleAlive={toggleAlive} alive={el ? true : false} x={j} y={i} cols={cols} rows={rows} height={squareHeight}/>
           ))}
           </div>
@@ -145,7 +145,7 @@ const Game = ({ rows, cols }) => {
 
         {/* this needs to go in separate component */}
         {/* preset cell patterns */}
-        <div className="mt-10 md:ml-10 md:w-1/8 md:mt-2 border border-gray-400 shadow-md">
+        <div className="mt-10 md:ml-10 md:w-1/8 md:mt-0 border border-gray-400 shadow-md">
           <h3 className="text-xl font-semibold bg-gray-400 w-full p-4">Preset Patterns</h3>
           <div className="flex justify-around p-4 md:p-0 md:flex md:flex-col items-center">
             {presets.map((el, i) => {
