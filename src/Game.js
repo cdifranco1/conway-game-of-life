@@ -118,14 +118,17 @@ const Game = ({ rows, cols }) => {
   return (
     board.length ?
       <>
-        <div className="w-3/6">
+        <div className="w-full md:w-3/6">
           <h3 className="text-2xl py-4 tracking-wide">Generation: {`${genCount}`}</h3>
+
+          {/* main board component */}
           <div className="flex flex-wrap shadow-md w-full border-gray-400 border" style={{ height: boardHeight }} >
             {board.map((el, i) => el.map((el, j) => <Square key={`${i}-${j}`} toggleAlive={toggleAlive} alive={el ? true : false} x={j} y={i} cols={cols} rows={rows} height={squareHeight}/>
           ))}
           </div>
 
           {/* this needs to go in separate component */}  
+          {/* buttons to control the board */}  
           <div className="w-full flex justify-evenly p-3">
             <button className={`px-3 py-2 ${!iterate ? "bg-green-500 hover:bg-green-600 active:bg-green-700" : "bg-red-500 hover:bg-red-600 active:bg-red-700"} text-white shadow-md rounded-md focus:outline-none focus:shadow-outline`} onClick={toggleStart}>
               {iterate ? "Pause" : "Play"}
@@ -141,21 +144,24 @@ const Game = ({ rows, cols }) => {
         </div>
 
         {/* this needs to go in separate component */}
-        <div className="flex flex-col flex-wrap justify-between items-center ml-10 w-1/10 max-h-screen mt-2 border border-gray-400 shadow-md">
+        {/* preset cell patterns */}
+        <div className="mt-10 md:ml-10 md:w-1/8 md:mt-2 border border-gray-400 shadow-md">
           <h3 className="text-xl font-semibold bg-gray-400 w-full p-4">Preset Patterns</h3>
-          {presets.map((el, i) => {
-            return (
-              <div key={`${el.name}-${i}`} className="w-7/12 my-2">
-                <button 
-                  className="position relative rounded-lg shadow-md focus:outline-none focus:shadow-outline overflow-hidden w-full"
-                  onClick={() => presetBoard(el)}
-                >
-                  <img className="object-cover w-full h-full" src={el.imgSrc} />
-                  <p className="font-semibold py-1">{el.name}</p>
-                </button>
-              </div>
-            )
-          })}
+          <div className="flex justify-around p-4 md:p-0 md:flex md:flex-col items-center">
+            {presets.map((el, i) => {
+              return (
+                <div key={`${el.name}-${i}`} className="w-1/8 md:w-7/12 md:my-4">
+                  <button 
+                    className="position relative rounded-lg shadow-md border border-gray-300 focus:outline-none focus:shadow-outline overflow-hidden w-full"
+                    onClick={() => presetBoard(el)}
+                  >
+                    <img className="object-cover w-full h-full" src={el.imgSrc} />
+                    <p className="font-semibold py-1">{el.name}</p>
+                  </button>
+                </div>
+              )
+            })}
+          </div>
         </div> 
       </>
       :
