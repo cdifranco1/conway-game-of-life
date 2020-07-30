@@ -2,8 +2,8 @@
 
 @tailwind components;
 
-/* html {
+html {
   font-size: 10px;
-} */
+}
 
 @tailwind utilities;
