@@ -8,7 +8,10 @@ const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
+  const [ speed, setSpeed ] = React.useState(100)
+
   const iterateRef = React.useRef(false)
+
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
   
   const centerCol = Math.floor(cols / 2)
@@ -55,11 +58,12 @@ const Game = ({ rows, cols }) => {
       return
     }
     nextGeneration()
-    setTimeout(runGame, 20)
+    setTimeout(runGame, speed)
   }
 
 
   const toggleAlive = (x, y) => {
+    console.log(x, y)
     if (!iterateRef.current){
       setBoard(board => produce(board, boardCopy => {
         if (boardCopy[y][x] === 0){
@@ -114,6 +118,10 @@ const Game = ({ rows, cols }) => {
     setGenCount(0)
   }
 
+  // const handleSpeedChange = ("") => {
+  //   const upperBound 
+  // }
+
   return (
     board.length ?
       <>
@@ -140,6 +148,12 @@ const Game = ({ rows, cols }) => {
             </button>
             <button className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={randomize}>Randomize</button>
           </div>
+
+          {/* <div className="flex">
+            <span>Speed</span>
+            <button>++</button>
+            <button>--</button>
+          </div> */}
         </div>
 
         {/* this needs to go in separate component */}
