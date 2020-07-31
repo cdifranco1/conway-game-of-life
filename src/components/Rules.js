@@ -17,7 +17,7 @@ const Rules = () => {
           If a cell is alive and has more than 3 live neighbors, it dies, as if by overpopulation.
         </li>
         <li className="list-decimal px-2 py-2">
-          If a cell is live and has 2 or 3 live neighbors, it remains live.
+          If a cell is alive and has 2 or 3 live neighbors, it remains alive.
         </li>
       </ul>
     </div>
