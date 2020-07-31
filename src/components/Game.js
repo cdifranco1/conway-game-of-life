@@ -63,7 +63,6 @@ const Game = ({ rows, cols }) => {
 
 
   const toggleAlive = (x, y) => {
-    console.log(x, y)
     if (!iterateRef.current){
       setBoard(board => produce(board, boardCopy => {
         if (boardCopy[y][x] === 0){
@@ -118,9 +117,19 @@ const Game = ({ rows, cols }) => {
     setGenCount(0)
   }
 
-  // const handleSpeedChange = ("") => {
-  //   const upperBound 
-  // }
+  const lowerSpeedBound = 210
+  const upperSpeedBound = 10
+
+  const handleSpeedChange = (direction ) => {
+    const increment = 20
+    if (direction === "up" && speed > upperSpeedBound){
+      setSpeed(speed => speed - increment)
+    }
+    if (direction === "down" && speed < lowerSpeedBound){
+      setSpeed(speed => speed + increment)
+    }
+    console.log(speed)
+  }
 
   return (
     board.length ?
@@ -149,11 +158,11 @@ const Game = ({ rows, cols }) => {
             <button className="px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white shadow-md rounded-md focus:outline-none focus:shadow-outline active:bg-blue-900" onClick={randomize}>Randomize</button>
           </div>
 
-          {/* <div className="flex">
-            <span>Speed</span>
-            <button>++</button>
-            <button>--</button>
-          </div> */}
+          <div className="flex w-full items-center py-3">
+            <span className="text-lg px-2 self-start font-semibold">Speed:</span>
+            <button className="focus:outline-none focus:shadow-outline shadow-md rounded-lg mx-2 px-2 bg-blue-500 text-white" onClick={() => handleSpeedChange("up")}>++</button>
+            <button className="focus:outline-none focus:shadow-outline shadow-md rounded-lg mx-2 px-2 bg-blue-500 text-white" onClick={() => handleSpeedChange("down")}>--</button>
+          </div>
         </div>
 
         {/* this needs to go in separate component */}
