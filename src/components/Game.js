@@ -8,9 +8,10 @@ const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
-  const [ speed, setSpeed ] = React.useState(100)
+  // const [ speed, setSpeed ] = React.useState(100)
 
   const iterateRef = React.useRef(false)
+  const speedRef = React.useRef(100)
 
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
   
@@ -20,6 +21,14 @@ const Game = ({ rows, cols }) => {
   const boardHeight = 525
   const squareHeight = `${boardHeight / rows}`
 
+
+  const runGame = () => {
+    if (!iterateRef.current){
+      return
+    }
+    nextGeneration()
+    setTimeout(runGame, speedRef.current)
+  }
 
   const randomize = () => {
     for (let i = 0; i < randAliveCells; i++){
@@ -51,14 +60,6 @@ const Game = ({ rows, cols }) => {
       }
     }
     return total
-  }
-
-  const runGame = () => {
-    if (!iterateRef.current){
-      return
-    }
-    nextGeneration()
-    setTimeout(runGame, speed)
   }
 
 
@@ -122,13 +123,13 @@ const Game = ({ rows, cols }) => {
 
   const handleSpeedChange = (direction ) => {
     const increment = 20
-    if (direction === "up" && speed > upperSpeedBound){
-      setSpeed(speed => speed - increment)
+    if (direction === "up" && speedRef.current > upperSpeedBound){
+      speedRef.current -= increment
     }
-    if (direction === "down" && speed < lowerSpeedBound){
-      setSpeed(speed => speed + increment)
+    if (direction === "down" && speedRef.current < lowerSpeedBound){
+      speedRef.current += increment
     }
-    console.log(speed)
+    console.log(speedRef.current)
   }
 
   return (
