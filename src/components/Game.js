@@ -8,10 +8,9 @@ const Game = ({ rows, cols }) => {
   const [ board, setBoard ] = React.useState([])
   const [ iterate, setIterate ] = React.useState(false)
   const [ genCount, setGenCount ] = React.useState(0)
-  // const [ speed, setSpeed ] = React.useState(100)
+  const [ speed, setSpeed ] = React.useState(1000)
 
   const iterateRef = React.useRef(false)
-  const speedRef = React.useRef(100)
 
   const [ randAliveCells, setRandAliveCells ]  = React.useState(300) 
   
@@ -27,7 +26,7 @@ const Game = ({ rows, cols }) => {
       return
     }
     nextGeneration()
-    setTimeout(runGame, speedRef.current)
+    setTimeout(runGame, speed)
   }
 
   const randomize = () => {
@@ -118,18 +117,17 @@ const Game = ({ rows, cols }) => {
     setGenCount(0)
   }
 
-  const lowerSpeedBound = 210
+  const lowerSpeedBound = 200
   const upperSpeedBound = 10
 
   const handleSpeedChange = (direction ) => {
     const increment = 20
-    if (direction === "up" && speedRef.current > upperSpeedBound){
-      speedRef.current -= increment
+    if (direction === "up" && speed >= upperSpeedBound){
+      setSpeed(speed => speed - increment)
     }
-    if (direction === "down" && speedRef.current < lowerSpeedBound){
-      speedRef.current += increment
+    if (direction === "down" && speed <= lowerSpeedBound){
+      setSpeed(speed => speed + increment)
     }
-    console.log(speedRef.current)
   }
 
   return (
