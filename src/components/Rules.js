@@ -20,6 +20,16 @@ const Rules = () => {
           If a cell is live and has 2 or 3 live neighbors, it remains live.
         </li>
       </ul>
+<<<<<<< HEAD
+=======
+      {/* <p>
+        Since the creation of the game by John Conway, both rare and common patterns were discovered from runnning the simulation. Some common patterns include oscillators, spaceships, and still lifes. 
+        
+        Oscillators cycle through patterns before utlimately returning to their original patterns. An example of an oscillator is the <span className="italic">Toad</span> pattern.
+
+
+      </p> */}
+>>>>>>> 74b462f01bfc2b3209375c32e3e4dc5db2181102
     </div>
   )
 }
